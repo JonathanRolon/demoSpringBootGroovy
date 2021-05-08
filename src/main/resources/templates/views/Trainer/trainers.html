@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="layouts/header :: headerHead"></head>
+<body>
+<div th:replace="layouts/header :: headerBody"/>
+<table>
+    <thead>
+    <tr>
+        <th> Title </th>
+        <th> Author </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${trainers.empty}">
+        <td colspan="2"> No Trainers Available </td>
+    </tr>
+    <tr th:each="trainer : ${trainers}">
+        <td><span th:text="${trainer.name}"> Name </span></td>
+        <td><span th:text="${trainer.level}"> Level </span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
