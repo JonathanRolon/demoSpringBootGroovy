@@ -7,4 +7,6 @@ interface TrainerService {
     List<Trainer> findAll()
 
     Optional<Trainer> findById(int id)
+
+    Trainer save(Trainer trainer)
 }

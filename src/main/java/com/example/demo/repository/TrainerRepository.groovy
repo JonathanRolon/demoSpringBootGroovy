@@ -10,4 +10,6 @@ interface TrainerRepository extends JpaRepository<Trainer, Integer> {
     List<Trainer> findAll()
 
     Optional<Trainer> findById( Integer id)
+
+    Trainer save(Trainer trainer)
 }

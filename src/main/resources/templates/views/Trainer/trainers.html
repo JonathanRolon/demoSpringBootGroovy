@@ -6,13 +6,13 @@
 <table>
     <thead>
     <tr>
-        <th> Title </th>
-        <th> Author </th>
+        <th> Title</th>
+        <th> Author</th>
     </tr>
     </thead>
     <tbody>
     <tr th:if="${trainers.empty}">
-        <td colspan="2"> No Trainers Available </td>
+        <td colspan="2"> No Trainers Available</td>
     </tr>
     <tr th:each="trainer : ${trainers}">
         <td><span th:text="${trainer.name}"> Name </span></td>
@@ -20,5 +20,47 @@
     </tr>
     </tbody>
 </table>
+<div id="_idAddTrainer" display="none" th:replace="views/Trainer/addTrainer :: addTrainer"/>
+<!-- Footer -->
+<footer class="page-footer font-small special-color-dark pt-4" th:fragment="footer">
+    <!-- Footer Elements -->
+    <div class="container">
+        <!--Grid row-->
+        <div class="row">
+            <!--Grid column-->
+            <div class="col-md-6 mb-4">
+                <button id="_idButtonOpenAddTrainer" data-whatever="@mdo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Nuevo entrenador
+                </button>
+            </div>
+            <!--Grid column-->
+        </div>
+        <!--Grid row-->
+    </div>
+    <!-- Footer Elements -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous">
+        window.onload = function(){
+           $('#exampleModal').on('show.bs.modal', function (event) {
+              var button = $(event.relatedTarget) // Button that triggered the modal
+              var recipient = button.data('whatever') // Extract info from data-* attributes
+              // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+              // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+              var modal = $(this)
+              modal.find('.modal-title').text('New message to ' + recipient)
+              modal.find('.modal-body input').val(recipient)
+            })
+        };
+</script>
 </body>
 </html>

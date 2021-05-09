@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" th:fragment="addTrainer" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Datos del entrenador</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" th:action="@{/trainers/add}" th:object="${trainer}" method="post">
+                    <div class="form-group">
+                        <label for="_idName" class="col-form-label">Name</label>
+                        <input th:field="*{name}" ype="text" class="form-control" id="_idName">
+                    </div>
+                    <div class="form-group">
+                        <label for="_idLevel" class="col-form-label">Level</label>
+                        <input th:field="*{level}" type="text" class="form-control" id="_idLevel">
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

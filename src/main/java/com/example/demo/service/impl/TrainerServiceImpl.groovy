@@ -21,4 +21,9 @@ class TrainerServiceImpl implements TrainerService {
     Optional<Trainer> findById(int id) {
         trainerRepository.findById id
     }
+
+    @Override
+    Trainer save(Trainer trainer){
+        trainerRepository.save(trainer);
+    }
 }
