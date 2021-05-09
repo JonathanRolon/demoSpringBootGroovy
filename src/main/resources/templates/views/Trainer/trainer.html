@@ -1,14 +1,34 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
-<head>
-    <title>Información del entrenadoe</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head th:replace="layouts/header :: headerHead">
 </head>
 <body>
-    <div>
-        <p th:text="'name: ' + *{trainer.get().name}" />
-        <p th:text="'Level: ' + *{trainer.get().level}" />
+<div th:replace="layouts/header :: headerBody"/>
+<script type="text/javascript" src="../js/trainer.js">
+</script>
+<div class="d-flex justify-content-center align-items-center container">
+    <div class="row ">
+        <form action="#" th:action="@{/trainers/edit}" th:object="${trainer}" method="post">
+            <div hidden class="form-group">
+                <label for="_idName" class="col-form-label">Name</label>
+                <input  th:field="*{id}" type="text" class="form-control" id="_idIdent">
+            </div>
+            <div class="form-group">
+                <label for="_idName" class="col-form-label">Name</label>
+                <input disabled th:field="*{name}" type="text" class="form-control" id="_idName" required>
+            </div>
+            <div class="form-group">
+                <label for="_idLevel" class="col-form-label">Level</label>
+                <input disabled th:field="*{level}" type="text" class="form-control" id="_idLevel" required>
+            </div>
+            <button id="_idButtonSubmit" type="submit" disabled value="Submit" class="btn btn-primary">Submit</button>
+            <button id="_idButtonCancel" type="button" disabled class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button id="_idButtonOpenEditTrainer" data-whatever="@mdo" type="button" class="btn btn-primary" data-toggle="modal"
+                    data-target="#exampleModal">
+                Edit
+            </button>
+        </form>
     </div>
-
+</div>
 </body>
 </html>

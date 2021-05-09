@@ -24,6 +24,12 @@ class TrainerServiceImpl implements TrainerService {
 
     @Override
     Trainer save(Trainer trainer){
-        trainerRepository.save(trainer);
+        Trainer nt = this.findById(trainer.id)?.get()
+        if(nt){
+            nt.setName(trainer.name)
+            nt.setLevel(trainer.level)
+            trainer = nt
+        }
+        trainerRepository.save(trainer)
     }
 }
