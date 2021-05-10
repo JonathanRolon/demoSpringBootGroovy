@@ -12,4 +12,6 @@ interface TrainerRepository extends JpaRepository<Trainer, Integer> {
     Optional<Trainer> findById( Integer id)
 
     Trainer save(Trainer trainer)
+
+    void deleteById(Integer id);
 }

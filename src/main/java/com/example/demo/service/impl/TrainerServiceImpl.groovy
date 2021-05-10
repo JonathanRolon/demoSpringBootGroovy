@@ -23,13 +23,22 @@ class TrainerServiceImpl implements TrainerService {
     }
 
     @Override
-    Trainer save(Trainer trainer){
+    Trainer create(Trainer trainer) {
+        Optional<Trainer> ot = trainer.id ? this.findById(trainer.id) : null
+        if (!ot)
+            trainerRepository.save(trainer)
+    }
+
+    @Override
+    Trainer update(Trainer trainer) {
         Trainer nt = this.findById(trainer.id)?.get()
-        if(nt){
-            nt.setName(trainer.name)
-            nt.setLevel(trainer.level)
-            trainer = nt
-        }
-        trainerRepository.save(trainer)
+        nt.setName(trainer.name)
+        nt.setLevel(trainer.level)
+        trainerRepository.save(nt)
+    }
+
+    @Override
+    void deleteById(Integer id){
+        trainerRepository.deleteById(id)
     }
 }

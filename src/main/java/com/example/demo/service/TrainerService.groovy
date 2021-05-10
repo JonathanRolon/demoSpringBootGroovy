@@ -8,5 +8,9 @@ interface TrainerService {
 
     Optional<Trainer> findById(int id)
 
-    Trainer save(Trainer trainer)
+    Trainer create(Trainer trainer)
+
+    Trainer update(Trainer trainer)
+
+    void deleteById(Integer id)
 }

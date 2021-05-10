@@ -5,17 +5,18 @@ import com.example.demo.service.TrainerService
 import groovy.util.logging.Log
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.ui.Model
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.servlet.ModelAndView
+import org.springframework.web.servlet.view.RedirectView
+
+import javax.transaction.Transactional
 
 @RestController
 @RequestMapping('/trainers')
@@ -29,10 +30,11 @@ class TrainerController {
         trainerService.findAll()
     }
 
+    @Transactional
     @RequestMapping(value='/edit', method=RequestMethod.POST)
-    public ModelAndView edit(Model model, @ModelAttribute(value="trainer") Trainer tr) {
+    ModelAndView edit(Model model, @ModelAttribute(value="trainer") Trainer tr) {
         try {
-            Trainer thisTrainer = trainerService.save(tr)
+            Trainer thisTrainer = trainerService.update(tr)
             model.addAttribute("trainer", trainerService.findById(thisTrainer.getId()))
             new ModelAndView('views/Trainer/trainer', [trainer: trainerService.findById(thisTrainer.getId())])
 
@@ -42,26 +44,36 @@ class TrainerController {
 
     }
 
+    @Transactional
     @PostMapping("/add")
-    public ModelAndView addTrainer(Model model, @ModelAttribute('trainer') Trainer tr) {
+    ModelAndView add(Model model, @ModelAttribute('trainer') Trainer tr) {
         try {
-            Trainer newTrainer = trainerService.save(tr)
+            Trainer newTrainer = trainerService.create(tr)
             model.addAttribute("trainer", trainerService.findById(newTrainer.getId()))
             new ModelAndView('views/Trainer/trainer', [trainer: trainerService.findById(newTrainer.getId())])
 
         } catch (Exception ex) {
             // log exception first,
             // then show error
-            new ModelAndView('views/Trainer/trainers')
+            new ModelAndView('views/Trainer/error')
         }
-
     }
 
-    /*@GetMapping("/all")
-    ModelAndView showAll(Model model){
-        model.addAttribute("trainers", trainerService.findAll())
-        return new ModelAndView ("home", model)
-    }*/
+    @Transactional
+    @GetMapping(value = '/delete/{id}')
+    RedirectView delete(Model model, @PathVariable(value="id")Integer id) {
+        try {
+            trainerService.deleteById(id)
+            new RedirectView("/trainers/", true)
+        } catch (Exception ex) {
+            new RedirectView("/trainers/error", true)
+        }
+    }
+
+    @GetMapping(value = '/error')
+    ModelAndView error(){
+        new ModelAndView('views/Trainer/error')
+    }
 
     @GetMapping("/")
     ModelAndView showAll(Model model) {

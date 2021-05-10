@@ -25,10 +25,11 @@ window.onload = function(){
 
     /*** trainers.html ***/
     let oButtonDeleteTrainer = $('#_idDeleteTrainer');
-
     oButtonDeleteTrainer.click(onPressDeleteTrainer);
 
-    function onPressDeleteTrainer(){
-
+    function onPressDeleteTrainer(event){
+        event.preventDefault();
+        let href = $(this).attr('href');
+        $('#_idDelTrainerRef').attr('href', href);
     }
 };

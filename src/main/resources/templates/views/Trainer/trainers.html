@@ -2,35 +2,35 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="layouts/header :: headerHead"></head>
 <body>
+<script type="text/javascript" src="../js/trainer.js">
+</script>
 <div th:replace="layouts/header :: headerBody"/>
 <div class="table-responsive">
     <table class="table">
         <thead>
         <tr>
-            <th> Name</th>
-            <th> Level</th>
-            <th></th>
+            <th>Name</th>
+            <th>Level</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:if="${trainers.empty}">
-            <td colspan="2"> No Trainers Available</td>
+            <td colspan="2">No Trainers Available</td>
         </tr>
         <tr th:each="trainer : ${trainers}">
-            <td><span th:text="${trainer.name}"> Name </span></td>
-            <td><span th:text="${trainer.level}"> Level </span></td>
+            <td><span th:text="${trainer.name}">Name</span></td>
+            <td><span th:text="${trainer.level}">Level</span></td>
             <td>
                 <a id="_idSeeTrainerDetails" th:href="@{'/trainers/' + ${trainer.id}}" type="button" class="button btn btn-labeled btn-info"><i class="fa fa-eye"></i></a>
-            </td>
-            <td>
-                <button id="_idDeleteTrainer" th:href="@{'/trainers/delete/' + ${trainer.id}}" type="button" class="button btn btn-labeled btn-dark"><i class="fa fa-trash"></i></button>
+                <a id="_idDeleteTrainer" th:href="@{/trainers/delete/{id}(id=${trainer.id})}" type="button" data-toggle="modal" data-target="#confirm-delete" class="button btn btn-labeled btn-dark"><i class="fa fa-trash"></i></a>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-<div id="_idAddTrainer" display="none" th:replace="views/Trainer/addTrainer :: addTrainer"/>
+<div id="_idAddTrainerFragment" th:replace="views/Trainer/add :: add"/>
+<div id="_idDeleteTrainerFragment" th:replace="views/Trainer/delete :: delete"/>
 <!-- Footer -->
 <footer class="page-footer font-small special-color-dark pt-4" th:fragment="footer">
     <!-- Footer Elements -->
@@ -40,7 +40,7 @@
             <!--Grid column-->
             <div class="col-md-6 mb-4">
                 <button id="_idButtonOpenAddTrainer" data-whatever="@mdo" type="button" class="btn btn-primary"
-                        data-toggle="modal" data-target="#exampleModal">
+                        data-toggle="modal" data-target="#_idAddModal">
                     <span><i class="fa fa-plus"></i></span>
                     New Trainer
                 </button>
